@@ -1,14 +1,14 @@
-# Introduction to Heroku Deployment
-
-In the last course, you learned how to deploy applications to AWS EKS. Because Heroku is so easy to use, we'll be able to get you up and running with Heroku a bit faster. Though Heroku is easy to use, it will require us to make some updates to how we structure our application so Heroku can build and run the application properly.
+# Heroku Deployment
 
 In this section, we'll discuss how to build and configure your application such that it runs properly on Heroku. Here's a sneak peek of what that entails:
 
 * Creating and updating a requirements.txt file to install dependencies
 * Setting up your environment variables
 * Using a Procfile, using gunicorn to run the application
-* We'll also discuss creating and managing your database in the next concept.
+* We'll also discuss creating and managing your database.
 
+The sample project is live at https://brunogarcia-flask-app.herokuapp.com.
+Try endpoints `/` and `/coolkids`.
 
 
 ## Installing Dependencies
@@ -16,14 +16,6 @@ In this section, we'll discuss how to build and configure your application such 
 Deploying an application to Heroku is as simple as pushing that repository to Heroku, just like Github.
 Heroku does a lot of things behind the scenes for us when we push a repository - including installing dependencies.
 For a Python application, Heroku looks for a `requirements.txt` file that needs to include all of your dependencies.
-
-If you want to follow along using the sample project, fork and clone it from this link before continuing.
-
-```shell
-git clone https://github.com/udacity/FSND/tree/master/projects/capstone/heroku_sample/starter
-```
-
-The sample project is live at https://sample-cem.herokuapp.com/. Try endpoints `/` and `/coolkids`.
 
 In order to save our package requirements we'll use the following command:
 
@@ -98,8 +90,16 @@ if __name__ == '__main__':
 
 Now we can run our local migrations using our `manage.py` file, to mirror how Heroku will run behind the scenes for us when we deploy our application:
 
+First, you need to create a local database in order to execute the migration commands.
+
 ```shell
+sudo -u postgres psql -c "CREATE DATABASE heroku;"
 export DATABASE_URL=postgres://postgres:postgres@localhost:5432/heroku
+```
+
+Then, create the migration:
+
+```shell
 python manage.py db init
 python manage.py db migrate
 python manage.py db upgrade
