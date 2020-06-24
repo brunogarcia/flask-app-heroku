@@ -158,5 +158,15 @@ For the purposes of the sample project, just add one additional one - ‘EXCITED
 ### Push it!
 
 ```shell
+git add .
+git ci -m "Chore: Create the configuration for Heroku"
 git push heroku master
+```
+
+### Run migrations
+
+Once your app is deployed, run migrations by running
+
+```shell
+heroku run python manage.py db upgrade --app name_of_your_application
 ```
