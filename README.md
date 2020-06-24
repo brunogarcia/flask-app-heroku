@@ -99,6 +99,7 @@ if __name__ == '__main__':
 Now we can run our local migrations using our `manage.py` file, to mirror how Heroku will run behind the scenes for us when we deploy our application:
 
 ```shell
+export DATABASE_URL=postgres://postgres:postgres@localhost:5432/heroku
 python manage.py db init
 python manage.py db migrate
 python manage.py db upgrade
